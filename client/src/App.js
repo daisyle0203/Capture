@@ -1,8 +1,8 @@
-import React, {useEffect}from "react"
+import React, { useEffect } from "react"
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core"
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux"
 
-import { getPosts } from './actions/posts';
+import { getPosts } from "./actions/posts"
 import Posts from "./components/Posts/Posts"
 import Form from "./components/Form/Form"
 import capture from "./images/capture.png"
@@ -10,13 +10,13 @@ import useStyles from "./styles"
 
 const App = () => {
   const classes = useStyles()
-  const dispatch = useDispatch();
-
+  
+  // Define dispatch using useDispatch hook from redux
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
-
+    dispatch(getPosts())
+  }, [dispatch])
 
   return (
     <Container maxWidth="lg">
@@ -24,7 +24,12 @@ const App = () => {
         <Typography className={classes.heading} variant="h4" align="center">
           Capture
         </Typography>
-        <img className={classes.image} src={capture} alt="capture" height="60" />
+        <img
+          className={classes.image}
+          src={capture}
+          alt="capture"
+          height="60"
+        />
       </AppBar>
       <Grow in>
         <Container>
