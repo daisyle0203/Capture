@@ -1,4 +1,5 @@
 import React from "react"
+import { Grid, CircularProgress } from "@material-ui/core"
 // Fetch the data from the global redux store with useSelector hook from redux
 import { useSelector } from 'react-redux';
 
@@ -14,12 +15,16 @@ const Posts = () => {
   const classes = useStyles();
   
   return (
-    // Use react fragment to we can add multiple things in here
-    <> 
-      <div>Posts</div>
-      <Post />
-      <Post />
-    </>
+    // If there is no post then so the loading circle, otherwise show the posts
+      !posts.length ? <CircularProgress /> : (
+        <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+          {posts.map((post) => (
+            <Grid key={post._id} item xs={12} sm={6}>
+              <Post post={post} />
+            </Grid>
+          ))}
+        </Grid>
+      )
   )
 }
 
