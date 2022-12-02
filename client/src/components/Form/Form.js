@@ -5,15 +5,16 @@ import { useDispatch } from "react-redux"
 
 import useStyles from "./styles"
 
-import { createPost } from "../../actions/posts"
+import { createPost, updatePost } from "../../actions/posts"
 
-const Form = () => {
+// Get the current id
+const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
     message: "",
     tags: "",
-    selectedFile: ""
+    selectedFile: "",
   })
   const classes = useStyles()
 
@@ -22,16 +23,20 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // dispatch/update the action
-    dispatch(createPost(postData))
+    if (currentId) {
+      dispatch(updatePost(currentId, postData))
+    } else {
+      // dispatch/update the action
+      dispatch(createPost(postData))
+    }
   }
 
   const clear = () => {}
 
   // Paper is a div that has whitish background
-  // In every TextField, if we do the same thing but only change the last property 
+  // In every TextField, if we do the same thing but only change the last property
   // That means all the data is going to persist while changing only the specific property
-  // Set state using an object 
+  // Set state using an object
   return (
     <Paper className={classes.paper}>
       <form
