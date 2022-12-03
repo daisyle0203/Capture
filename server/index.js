@@ -22,7 +22,7 @@ app.use("/posts", postRoutes)
 
 // Setup connection to mongodb.com
 const CONNECTION_URL =
-  "mongodb+srv://daisyle:@cluster0.uq2mxtc.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://daisyle:daisyle123@cluster0.uq2mxtc.mongodb.net/?retryWrites=true&w=majority"
 // Set up port
 const PORT = process.env.PORT || 5001
 

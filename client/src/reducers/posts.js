@@ -4,6 +4,8 @@ export default (posts = [], action) => {
   // action.type is the key
   switch (action.type) {
     // Specify all the types/action
+    case "DELETE":
+      return posts.filter((post) => post._id !== action.payload)
     case "UPDATE":
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
