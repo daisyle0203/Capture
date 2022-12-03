@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { TextField, Button, Typography, Paper } from "@material-ui/core"
 import FileBase from "react-file-base64"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import useStyles from "./styles"
 
@@ -16,10 +16,18 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   })
+
+  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+
   const classes = useStyles()
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if(post) setPostData(post)
+  
+  }, [post])
+  
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -29,9 +37,20 @@ const Form = ({ currentId, setCurrentId }) => {
       // dispatch/update the action
       dispatch(createPost(postData))
     }
+
+    clear()
   }
 
-  const clear = () => {}
+  const clear = () => {
+    setCurrentId(null)
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    })
+  }
 
   // Paper is a div that has whitish background
   // In every TextField, if we do the same thing but only change the last property
@@ -45,7 +64,7 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">{currentId ? "Editing" : "Creating"} a Memory</Typography>
         <TextField
           name="creator"
           variant="outlined"

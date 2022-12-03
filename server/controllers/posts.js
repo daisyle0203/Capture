@@ -1,5 +1,5 @@
 // This gives us access to the PostMessage model
-import { Mongoose } from "mongoose"
+import mongoose from "mongoose"
 import PostMessage from "../models/postMessage.js"
 
 // All the handlers for the routes
@@ -16,14 +16,14 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   // With POST request, we have access to req.body
-    const post = req.body
+  const post = req.body
 
-    //Create a new post and pass rq.body which is assigned to post
-    const newPost = new PostMessage(post)
+  //Create a new post and pass rq.body which is assigned to post
+  const newPost = new PostMessage(post)
 
   try {
     await newPost.save()
-    
+
     res.status(201).json(newPost)
   } catch (error) {
     res.status(409).json({ message: error.message })
@@ -34,9 +34,14 @@ export const updatePost = async (req, res) => {
   const { id: _id } = req.params
   const post = req.body
 
-  if(!Mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No post with this ID")
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with this ID")
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, {new: true})
+  const updatedPost = await PostMessage.findByIdAndUpdate(
+    _id,
+    { ...post, _id },
+    { new: true }
+  )
 
   res.json(updatedPost)
 }
