@@ -11,7 +11,7 @@ import useStyles from "./styles"
 const App = () => {
   const [currentId, setCurrentId] = useState(null)
   const classes = useStyles()
-  
+
   // Define dispatch using useDispatch hook from redux
   const dispatch = useDispatch()
 
@@ -35,7 +35,9 @@ const App = () => {
       <Grow in>
         <Container>
           <Grid
+            className={classes.mainContainer}
             container
+            direction="column-reverse"
             justifyContent="space-between"
             alignItems="stretch"
             spacing={3}
