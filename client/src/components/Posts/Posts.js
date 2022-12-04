@@ -11,7 +11,6 @@ const Posts = ({ setCurrentId }) => {
   // Initialize useSelector and pass state as a parameter so we can get access to the global redux store/state
   // And then return state.posts
   const posts = useSelector((state) => state.posts); // refers to the reducers
-  console.log(posts);
 
   const classes = useStyles();
   
