@@ -2,12 +2,16 @@
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
+import dotenv from "dotenv"
 
 // Import the routes
 import postRoutes from "./routes/posts.js"
 
 // Initial the app using express
 const app = express()
+
+// Call dotenv
+dotenv.config()
 
 // Set the limit to 30mb because we will send images which can be large in size
 app.use(express.json({ limit: "30mb" }));
@@ -20,14 +24,12 @@ app.use(cors())
 // Use the routes middleware
 app.use("/posts", postRoutes)
 
-// Setup connection to mongodb.com
-const CONNECTION_URL =
-  "mongodb+srv://daisyle:@cluster0.uq2mxtc.mongodb.net/?retryWrites=true&w=majority"
 // Set up port
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5000
 
+// Setup connection to mongodb.com
 mongoose
-  .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
