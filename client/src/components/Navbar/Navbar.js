@@ -1,12 +1,14 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { AppBar, Typography, Toolbar, Button, Avatar } from "@material-ui/core"
-import capture from "../../images/capture.png"
+import { useNavigate } from 'react-router-dom';
 
 import useStyles from "./styles"
+import capture from "../../images/capture.png"
 
 const Navbar = () => {
   const classes = useStyles()
+
+  const navigate = useNavigate();
 
   const user = null
 
@@ -14,11 +16,10 @@ const Navbar = () => {
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
         <Typography
-          element={Link}
-          to="/"
           className={classes.heading}
           variant="h4"
           align="center"
+          onClick={() => navigate('/')}
         >
           Capture
         </Typography>
@@ -52,10 +53,9 @@ const Navbar = () => {
           </div>
         ) : (
           <Button
-            element={Link}
-            to="/auth"
             variant="contained"
             color="primary"
+            onClick={() => navigate('/auth')}
           >
             Sign in
           </Button>
