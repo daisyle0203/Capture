@@ -61,6 +61,7 @@ export const likePost = async (req, res) => {
   const { id: _id } = req.params
 
   if(!req.userId) return res.json({ message: "Unauthenticated"})
+  
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No post with this ID")
 
