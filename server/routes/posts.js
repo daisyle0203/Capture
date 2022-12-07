@@ -8,7 +8,7 @@ const router = express.Router()
 
 // All the routes that have something to do with posts
 router.get("/", getPosts)
-router.post("/", createPost)
+router.post("/",auth, createPost)
 router.patch("/:id", auth, updatePost)
 router.delete("/:id", auth, deletePost)
 router.patch("/:id/likePost",auth, likePost)
