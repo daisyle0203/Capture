@@ -9,21 +9,20 @@ import {
 } from "@material-ui/core"
 import { GoogleLogin } from "@react-oauth/google"
 import jwt_decode from "jwt-decode"
-// import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
+import { AUTH } from '../../constants/actionTypes';
+import { useNavigate } from "react-router-dom"
 
-// import Icon from "./icon"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import useStyles from "./styles"
 import Input from "./Input"
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false)
-
   const [isSignup, setIsSignup] = useState(false)
-
   const classes = useStyles()
-
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleShowPassword = () =>
     setShowPassword((preShowPassword) => !preShowPassword)
@@ -38,17 +37,21 @@ const Auth = () => {
     handleShowPassword(false)
   }
 
-  const onSuccess = (res) => {
+  const onSuccess = async (res) => {
     const decoded = jwt_decode(res.credential)
-    console.log(decoded);
-    // const result = res?.profileObj
-    // const token = res?.tokenId
+    console.log(decoded)
 
-    // try {
-    //   dispatch({ type: "AUTH", data: { result, token } })
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    const result = decoded?.name
+    const token = decoded?.sub
+    const image = decoded?.picture
+
+    try {
+      dispatch({ type: AUTH, data: { result, token, image } })
+
+      navigate("/")
+    } catch (error) {
+      console.log(error)     
+    }
   }
   const onFailure = (err) => {
     console.log("failed:", err)

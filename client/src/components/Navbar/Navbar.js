@@ -1,16 +1,35 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { AppBar, Typography, Toolbar, Button, Avatar } from "@material-ui/core"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom"
+import { useDispatch } from "react-redux"
 
+import { LOGOUT } from '../../constants/actionTypes';
 import useStyles from "./styles"
 import capture from "../../images/capture.png"
 
 const Navbar = () => {
   const classes = useStyles()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const location = useLocation()
+  console.log(location);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
 
-  const navigate = useNavigate();
+  console.log(user)
 
-  const user = null
+  const logout = () => {
+    dispatch({ type: LOGOUT })
+
+    navigate("/")
+
+    setUser(null)
+  }
+
+  useEffect(() => {
+    const token = user?.token
+
+    setUser(JSON.parse(localStorage.getItem("profile")))
+  }, [location])
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
@@ -19,7 +38,7 @@ const Navbar = () => {
           className={classes.heading}
           variant="h4"
           align="center"
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
         >
           Capture
         </Typography>
@@ -35,18 +54,19 @@ const Navbar = () => {
           <div className={classes.profile}>
             <Avatar
               className={classes.purple}
-              alt={user.result.name}
-              src={user.result.imageUrl}
+              alt={user.image}
+              src={user.image}
             >
-              {user.result.name.charAt(0)}
+              {user.name}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
-              {user.result.name}
+              {user.result}
             </Typography>
             <Button
               variant="contained"
               className={classes.logout}
               color="secondary"
+              onClick={logout}
             >
               Logout
             </Button>
@@ -55,7 +75,7 @@ const Navbar = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate('/auth')}
+            onClick={() => navigate("/auth")}
           >
             Sign in
           </Button>
