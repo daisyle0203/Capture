@@ -1,7 +1,7 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes"
 // Import everything from actions as api
 // We now are be able to use fetchPosts and createPost
-import * as api from "../api"
+import * as api from "../api/index.js"
 
 // Action Creators : function that return an action
 // Action is an object with type and payload

@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 
 // Import the routes
 import postRoutes from "./routes/posts.js"
+import userRoutes from "./routes/users.js"
 
 // Initial the app using express
 const app = express()
@@ -23,6 +24,7 @@ app.use(cors())
 
 // Use the routes middleware
 app.use("/posts", postRoutes)
+app.use("/user", userRoutes)
 
 // Set up port
 const PORT = process.env.PORT || 5000

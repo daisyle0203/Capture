@@ -12,10 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
-  console.log(location);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")))
-
-  console.log(user)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile"))) 
 
   const logout = () => {
     dispatch({ type: LOGOUT })
