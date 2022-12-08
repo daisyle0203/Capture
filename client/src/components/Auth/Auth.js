@@ -7,10 +7,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core"
-import { GoogleLogin } from "@react-oauth/google"
-import jwt_decode from "jwt-decode"
 import { useDispatch } from "react-redux"
-import { AUTH } from "../../constants/actionTypes"
 import { useNavigate } from "react-router-dom"
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
@@ -55,26 +52,6 @@ const Auth = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup)
 
     setShowPassword(false)
-  }
-
-  const onSuccess = async (res) => {
-    const decoded = jwt_decode(res.credential)
-    console.log(decoded)
-
-    const result = decoded?.name
-    const token = decoded?.sub
-    const image = decoded?.picture
-
-    try {
-      dispatch({ type: AUTH, data: { result, token, image } })
-
-      navigate("/")
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const onFailure = (err) => {
-    console.log("failed:", err)
   }
 
   return (
@@ -134,12 +111,6 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-          <GoogleLogin
-            buttonText="Sign in with Google"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-          />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>

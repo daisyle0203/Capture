@@ -16,12 +16,20 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   })
-
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
-
   const classes = useStyles()
-
   const dispatch = useDispatch()
+
+  const clear = () => {
+    setCurrentId(null)
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    })
+  }
 
   useEffect(() => {
     if(post) setPostData(post)
@@ -39,17 +47,6 @@ const Form = ({ currentId, setCurrentId }) => {
     }
 
     clear()
-  }
-
-  const clear = () => {
-    setCurrentId(null)
-    setPostData({
-      creator: "",
-      title: "",
-      message: "",
-      tags: "",
-      selectedFile: "",
-    })
   }
 
   // Paper is a div that has whitish background
