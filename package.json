@@ -1,6 +1,10 @@
 {
   "name": "capture",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.18.1",
+    "npm": "8.19.2"
+  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "scripts": {
