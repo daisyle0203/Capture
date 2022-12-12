@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Use the url that is pointing to the backend route 
-const API = axios.create({ baseURL: "http://localhost:5001"})
+const API = axios.create({ baseURL: "/"})
 
 
 // Get all the post and then export it so we can use it somewhere else
