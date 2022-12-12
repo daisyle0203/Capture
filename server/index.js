@@ -38,7 +38,7 @@ app.get('*', (req, res) => {
 // Set up port
 const PORT = process.env.PORT || 5001
 
-// Setup connection to mongodb.com whitelisted
+// Setup connection to mongodb.com
 mongoose
   .connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() =>
