@@ -27,6 +27,7 @@ app.use(cors())
 // Use the routes middleware
 app.use("/posts", postRoutes)
 app.use("/user", userRoutes)
+
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }

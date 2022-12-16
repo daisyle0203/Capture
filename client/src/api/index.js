@@ -4,6 +4,13 @@ import axios from 'axios';
 // Use the url that is pointing to the backend route 
 const API = axios.create({ baseURL: "/"})
 
+API.interceptors.request.use((req) => {
+    if(localStorage.getItem("profile")) {
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`
+    }
+
+    return req
+})
 
 // Get all the post and then export it so we can use it somewhere else
 export const fetchPosts = () => API.get("/posts");

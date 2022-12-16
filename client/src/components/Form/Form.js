@@ -10,20 +10,22 @@ import { createPost, updatePost } from "../../actions/posts"
 // Get the current id
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
   })
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+  console.log(currentId);
   const classes = useStyles()
   const dispatch = useDispatch()
+
+  const user= JSON.parse(localStorage.getItem("profile"))
+  console.log(user);
 
   const clear = () => {
     setCurrentId(null)
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -40,13 +42,21 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault()
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData))
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name}))
+      clear()
     } else {
-      // dispatch/update the action
-      dispatch(createPost(postData))
+      dispatch(createPost({ ...postData, name: user?.result?.name}))
+      clear()
     }
+  }
 
-    clear()
+  if(!user?.result?.name) {
+    return (
+    <Paper className={classes.paper}>
+      <Typography>
+        Please sign in to capture your own posts and like other's posts.
+      </Typography>
+    </Paper>)
   }
 
   // Paper is a div that has whitish background
@@ -61,17 +71,7 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">{currentId ? "Editing" : "Creating"} a Memory</Typography>
-        <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-        />
+        <Typography variant="h6">{currentId ? "Editing" : "Capture"} a Memory</Typography>
         <TextField
           name="title"
           variant="outlined"
