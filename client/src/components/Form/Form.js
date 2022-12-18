@@ -9,22 +9,29 @@ import { createPost, updatePost } from "../../actions/posts"
 
 // Get the current id
 const Form = ({ currentId, setCurrentId }) => {
+  console.log(currentId)
   const [postData, setPostData] = useState({
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
   })
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
-  console.log(currentId);
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((message) => message._id === currentId) : null
+  )
+  console.log(currentId)
   const classes = useStyles()
   const dispatch = useDispatch()
 
-  const user= JSON.parse(localStorage.getItem("profile"))
-  console.log(user);
+  const user = JSON.parse(localStorage.getItem("profile"))
+  console.log(user)
+
+  useEffect(() => {
+    if (post) setPostData(post)
+  }, [post])
 
   const clear = () => {
-    setCurrentId(null)
+    setCurrentId(0)
     setPostData({
       title: "",
       message: "",
@@ -33,30 +40,26 @@ const Form = ({ currentId, setCurrentId }) => {
     })
   }
 
-  useEffect(() => {
-    if(post) setPostData(post)
-  
-  }, [post])
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (currentId) {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name}))
+    if (currentId === 0) {
+      dispatch(createPost({ ...postData, name: user?.result?.name }))
       clear()
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name}))
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }))
       clear()
     }
   }
 
-  if(!user?.result?.name) {
+  if (!user?.result?.name) {
     return (
-    <Paper className={classes.paper}>
-      <Typography>
-        Please sign in to capture your own posts and like other's posts.
-      </Typography>
-    </Paper>)
+      <Paper className={classes.paper}>
+        <Typography>
+          Please sign in to capture your own posts and like other's posts.
+        </Typography>
+      </Paper>
+    )
   }
 
   // Paper is a div that has whitish background
@@ -71,7 +74,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">{currentId ? "Editing" : "Capture"} a Memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Capture"} a Memory
+        </Typography>
         <TextField
           name="title"
           variant="outlined"
