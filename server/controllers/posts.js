@@ -16,20 +16,22 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   // With POST request, we have access to req.body
-  const post = req.body
-
-  //Create a new post and pass req.body which is assigned to post
-  const newPost = new PostMessage({
-    ...post,
-    creator: req.userId,
-    createdAt: new Date().toISOString,
-  })
-
   try {
+    const post = req.body
+    console.log(post)
+    console.log(req.userId)
+    //Create a new post and pass req.body which is assigned to post
+    const newPost = new PostMessage({
+      ...post,
+      creator: req.userId,
+      // createdAt: new Date().toISOString,
+    })
+    console.log(newPost)
     await newPost.save()
 
     res.status(201).json(newPost)
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message })
   }
 }

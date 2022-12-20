@@ -44,6 +44,10 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault()
 
     if (currentId === 0) {
+      if(!postData.selectedFile){
+        alert("You must add an image!")
+        return
+      }
       dispatch(createPost({ ...postData, name: user?.result?.name }))
       clear()
     } else {
