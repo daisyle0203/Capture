@@ -63,6 +63,7 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
+      {(user?.result?._id === post?.creator) && (
       <div className={classes.overlay2}>
         <Button
           style={{ color: "white" }}
@@ -72,6 +73,7 @@ const Post = ({ post, setCurrentId }) => {
           <MoreHorizIcon fontSize="medium" />
         </Button>
       </div>
+      )}
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
           {post.tags.map((tag) => `#${tag} `)}
@@ -99,6 +101,7 @@ const Post = ({ post, setCurrentId }) => {
         >
           <Likes />
         </Button>
+        {(user?.result?._id === post?.creator) && (
         <Button
           size="small"
           color="primary"
@@ -109,6 +112,7 @@ const Post = ({ post, setCurrentId }) => {
           <DeleteIcon fontSize="small" />
           &nbsp; Delete
         </Button>
+        )}
       </CardActions>
     </Card>
   )
