@@ -18,15 +18,12 @@ export const createPost = async (req, res) => {
   // With POST request, we have access to req.body
   try {
     const post = req.body
-    console.log(post)
-    console.log(req.userId)
+
     //Create a new post and pass req.body which is assigned to post
     const newPost = new PostMessage({
       ...post,
       creator: req.userId,
-      // createdAt: new Date().toISOString,
     })
-    console.log(newPost)
     await newPost.save()
 
     res.status(201).json(newPost)

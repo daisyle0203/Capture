@@ -15,18 +15,8 @@ const postSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: new Date(),
-    get: format
   },
-},
-{
-  toJSON: {
-    getters: true
-  }
 })
-
-function format(date){
-  return date.toISOString()
-}
 
 // Turn the schema into a mongoose model and assign it to PostMessage
 const PostMessage = mongoose.model("PostMessage", postSchema)
