@@ -9,22 +9,21 @@ import { createPost, updatePost } from "../../actions/posts"
 
 // Get the current id
 const Form = ({ currentId, setCurrentId }) => {
-  console.log(currentId)
   const [postData, setPostData] = useState({
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
   })
+
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   )
-  console.log(currentId)
+
   const classes = useStyles()
   const dispatch = useDispatch()
 
   const user = JSON.parse(localStorage.getItem("profile"))
-  console.log(user)
 
   useEffect(() => {
     if (post) setPostData(post)
