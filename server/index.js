@@ -28,6 +28,7 @@ app.use(cors())
 app.use("/posts", postRoutes)
 app.use("/user", userRoutes)
 
+// Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
@@ -47,6 +48,6 @@ mongoose
   )
   .catch((error) => console.log(error.message))
 
-  // This is to make sure we don't have any warning in the console
+// This is to make sure we don't have any warning in the console
 mongoose.set("useFindAndModify", false)
 

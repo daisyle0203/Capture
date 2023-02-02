@@ -15,7 +15,7 @@ const Posts = ({ setCurrentId }) => {
   const classes = useStyles();
   
   return (
-    // If there is no post then so the loading circle, otherwise show the posts
+    // If there is no post, show the loading circle, otherwise show the posts
       !posts.length ? <CircularProgress /> : (
         <Grid className={classes.container} container alignItems="stretch" spacing={3}>
           {posts.map((post) => (

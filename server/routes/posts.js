@@ -1,5 +1,4 @@
 import express from "express"
-// Import getPosts and createPost from the controllers
 // In React we don't need the .js but in Node we need to include .js
 import {
   getPosts,
@@ -12,6 +11,7 @@ import {
 // import middleware auth
 import auth from "../middleware/auth.js"
 
+// Set up the router
 const router = express.Router()
 
 // All the routes that have something to do with posts

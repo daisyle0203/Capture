@@ -35,8 +35,10 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   const { id: _id } = req.params
+  // post is what we get from the frontend
   const post = req.body
-
+  
+  // check if the id in the params is mongoose id
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No post with this ID")
 
